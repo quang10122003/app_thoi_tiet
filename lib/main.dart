@@ -1,3 +1,5 @@
+import 'package:bai_cuoi_ky/Widget/homeScreen.dart';
+import 'package:bai_cuoi_ky/Widget/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "app thời tiết",
-      home: Text("thoi tiet"),
+      initialRoute: "/",
+      routes: {
+        '/' : (context) => LoginScreen()
+      },
+
     );
   }
 }
