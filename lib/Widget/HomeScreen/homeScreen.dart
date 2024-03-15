@@ -1,4 +1,5 @@
-import 'package:bai_cuoi_ky/Widget/Models/city.dart';
+import 'package:bai_cuoi_ky/Models/city.dart';
+import 'package:bai_cuoi_ky/Models/cityWeather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,9 +12,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  String? _selectedItem = City().loved_cities.first;
   Widget build(BuildContext context) {
-    City city = City();
-    String? _selectedItem = city.loved_cities.first;
     final TextEditingController cityController = TextEditingController();
     Size screen = MediaQuery.of(context).size;
     return Container(
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
                                       width: 0.5, color: Color(0xFF3F72AF))),
                             ),
                             alignment: AlignmentDirectional.center,
-                            value: _selectedItem,
+                            value: City().loved_cities.first,
                             style: TextStyle(
                               color: Color(0xFF112D4E),
                               fontSize: 30,
@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
                               fontWeight: FontWeight.w300,
                               height: 0,
                             ),
-                            items: city.loved_cities
+                            items: City().loved_cities
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                   value: value,
@@ -80,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.symmetric(
                         vertical: 10, horizontal: screen.width / 2 - 75),
                     child: SvgPicture.asset(
-                      'images/weather_icon/day/day-wind-cloud.svg',
+                      'images/weather_icon/day/day-sun-clear.svg',
                       width: 150,
                       height: 150,
                     ),
@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: Text(
-                      '20°C',
+                      '${City().cities[_selectedItem]?.today_temp}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF112D4E),

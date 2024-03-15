@@ -1,7 +1,7 @@
 class CityWeather {
-  String today_weather;
-  String description;
-  int today_temp;
+  String today_weather; // thơ
+  String description; // mưu tả
+  int today_temp; // nhiệt đọo hôm nay
   double wind;
   double pressure;
   int humidity;
