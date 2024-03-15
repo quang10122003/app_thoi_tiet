@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Container(
                     width: 341,
-                    height: 101,
+                    height: 73,
                     child: Stack(
                       children: [
                         Positioned(
@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
                           top: 0,
                           child: Container(
                             width: 341,
-                            height: 101,
+                            height: 73,
                             decoration: ShapeDecoration(
                               color: Color(0xFFDBE2EF),
                               shape: RoundedRectangleBorder(
@@ -233,8 +233,8 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                         Positioned(
-                          left: 20,
-                          top: 72,
+                          left: 192,
+                          top: 13,
                           child: SizedBox(
                             width: 70,
                             height: 17,
@@ -260,8 +260,8 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                         Positioned(
-                          left: 85,
-                          top: 71,
+                          left: 257,
+                          top: 12,
                           child: SizedBox(
                             width: 75,
                             height: 19,
@@ -280,13 +280,13 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         Positioned(
                           left: 170,
-                          top: 93,
+                          top: 61,
                           child: Transform(
                             transform: Matrix4.identity()
                               ..translate(0.0, 0.0)
                               ..rotateZ(-1.57),
                             child: Container(
-                              width: 82,
+                              width: 53,
                               decoration: ShapeDecoration(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(
@@ -299,101 +299,101 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          left: 192,
-                          top: 13,
-                          child: SizedBox(
-                            width: 70,
-                            height: 17,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'images/bar/uv.svg',
-                                  width: 17,
-                                  height: 17,
-                                ),
-                                Text(
-                                  '  UV',
-                                  style: TextStyle(
-                                    color: Color(0xFF112D4E),
-                                    fontSize: 11,
-                                    fontFamily: 'Jost',
-                                    fontWeight: FontWeight.w300,
-                                    height: 0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 257,
-                          top: 12,
-                          child: SizedBox(
-                            width: 75,
-                            height: 19,
-                            child: Text(
-                              '4',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: Color(0xFF112D4E),
-                                fontSize: 11,
-                                fontFamily: 'Jost',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   left: 192,
+                        //   top: 13,
+                        //   child: SizedBox(
+                        //     width: 70,
+                        //     height: 17,
+                        //     child: Row(
+                        //       children: [
+                        //         SvgPicture.asset(
+                        //           'images/bar/uv.svg',
+                        //           width: 17,
+                        //           height: 17,
+                        //         ),
+                        //         Text(
+                        //           '  UV',
+                        //           style: TextStyle(
+                        //             color: Color(0xFF112D4E),
+                        //             fontSize: 11,
+                        //             fontFamily: 'Jost',
+                        //             fontWeight: FontWeight.w300,
+                        //             height: 0,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // Positioned(
+                        //   left: 257,
+                        //   top: 12,
+                        //   child: SizedBox(
+                        //     width: 75,
+                        //     height: 19,
+                        //     child: Text(
+                        //       '4',
+                        //       textAlign: TextAlign.right,
+                        //       style: TextStyle(
+                        //         color: Color(0xFF112D4E),
+                        //         fontSize: 11,
+                        //         fontFamily: 'Jost',
+                        //         fontWeight: FontWeight.w400,
+                        //         height: 0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // Positioned(
+                        //   left: 192,
+                        //   top: 42,
+                        //   child: SizedBox(
+                        //     width: 75,
+                        //     height: 17,
+                        //     child: Row(
+                        //       children: [
+                        //         SvgPicture.asset(
+                        //           'images/bar/dewpoint.svg',
+                        //           width: 17,
+                        //           height: 17,
+                        //         ),
+                        //         Text(
+                        //           '  Dew point',
+                        //           style: TextStyle(
+                        //             color: Color(0xFF112D4E),
+                        //             fontSize: 11,
+                        //             fontFamily: 'Jost',
+                        //             fontWeight: FontWeight.w300,
+                        //             height: 0,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // Positioned(
+                        //   left: 257,
+                        //   top: 41,
+                        //   child: SizedBox(
+                        //     width: 75,
+                        //     height: 19,
+                        //     child: Text(
+                        //       '7°C',
+                        //       textAlign: TextAlign.right,
+                        //       style: TextStyle(
+                        //         color: Color(0xFF112D4E),
+                        //         fontSize: 11,
+                        //         fontFamily: 'Jost',
+                        //         fontWeight: FontWeight.w400,
+                        //         height: 0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         Positioned(
                           left: 192,
                           top: 42,
-                          child: SizedBox(
-                            width: 75,
-                            height: 17,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'images/bar/dewpoint.svg',
-                                  width: 17,
-                                  height: 17,
-                                ),
-                                Text(
-                                  '  Dew point',
-                                  style: TextStyle(
-                                    color: Color(0xFF112D4E),
-                                    fontSize: 11,
-                                    fontFamily: 'Jost',
-                                    fontWeight: FontWeight.w300,
-                                    height: 0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 257,
-                          top: 41,
-                          child: SizedBox(
-                            width: 75,
-                            height: 19,
-                            child: Text(
-                              '7°C',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: Color(0xFF112D4E),
-                                fontSize: 11,
-                                fontFamily: 'Jost',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 192,
-                          top: 71,
                           child: SizedBox(
                             width: 75,
                             height: 17,
@@ -420,7 +420,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         Positioned(
                           left: 257,
-                          top: 71,
+                          top: 41,
                           child: SizedBox(
                             width: 75,
                             height: 19,
@@ -456,56 +456,165 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Container(
                     width: 341,
-                    height: 73,
+                    height: 83,
                     decoration: ShapeDecoration(
                       color: Color(0xFFDBE2EF),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              'Monday',
-                              style: TextStyle(
-                                color: Color(0xFF112D4E),
-                                fontSize: 14,
-                                fontFamily: 'Jost',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Monday',
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 14,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                                Text(
+                                  '20/3/2024',
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 14,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w200,
+                                    height: 0,
+                                  ),
+                                )
+                              ],
+                            ),
+                            SvgPicture.asset(
+                              'images/weather_icon/day/day-wind-cloud.svg',
+                              width: 40,
+                              height: 40,
                             ),
                             Text(
-                              '20/3/2024',
+                              '15°C',
+                              textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Color(0xFF112D4E),
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontFamily: 'Jost',
-                                fontWeight: FontWeight.w200,
+                                fontWeight: FontWeight.w400,
                                 height: 0,
                               ),
                             )
                           ],
                         ),
-                        SvgPicture.asset(
-                          'images/weather_icon/day/day-wind-cloud.svg',
-                          width: 56,
-                          height: 56,
+                        SizedBox(
+                          height: 5,
                         ),
-                        Text(
-                          '11 / 7°C',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Color(0xFF112D4E),
-                            fontSize: 16,
-                            fontFamily: 'Jost',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/wind.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '1,5m/s SW',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/pressure.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '1019hPa',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/humidity.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '94%',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/visibility.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '10.0km',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                          ],
                         )
                       ],
                     ),
@@ -515,56 +624,165 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Container(
                     width: 341,
-                    height: 73,
+                    height: 83,
                     decoration: ShapeDecoration(
                       color: Color(0xFFDBE2EF),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              'Tuesday',
-                              style: TextStyle(
-                                color: Color(0xFF112D4E),
-                                fontSize: 14,
-                                fontFamily: 'Jost',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Tuesday',
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 14,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                                Text(
+                                  '20/3/2024',
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 14,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w200,
+                                    height: 0,
+                                  ),
+                                )
+                              ],
+                            ),
+                            SvgPicture.asset(
+                              'images/weather_icon/day/day-wind-cloud.svg',
+                              width: 40,
+                              height: 40,
                             ),
                             Text(
-                              '20/3/2024',
+                              '15°C',
+                              textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: Color(0xFF112D4E),
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontFamily: 'Jost',
-                                fontWeight: FontWeight.w200,
+                                fontWeight: FontWeight.w400,
                                 height: 0,
                               ),
                             )
                           ],
                         ),
-                        SvgPicture.asset(
-                          'images/weather_icon/day/day-wind-cloud.svg',
-                          width: 56,
-                          height: 56,
+                        SizedBox(
+                          height: 5,
                         ),
-                        Text(
-                          '15 / 8°C',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            color: Color(0xFF112D4E),
-                            fontSize: 16,
-                            fontFamily: 'Jost',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/wind.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '1,5m/s SW',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/pressure.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '1019hPa',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/humidity.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '94%',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/bar/visibility.svg',
+                                  height: 17,
+                                  width: 17,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  '10.0km',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF112D4E),
+                                    fontSize: 11,
+                                    fontFamily: 'Jost',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                          ],
                         )
                       ],
                     ),
