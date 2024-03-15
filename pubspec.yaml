@@ -67,7 +67,7 @@ flutter:
     - images/weather_icon/both/
     - images/weather_icon/day/
     - images/weather_icon/night/
-  #   - images/a_dot_burr.jpeg
+    - images/icon_weather_home/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
