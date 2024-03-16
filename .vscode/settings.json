@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/github/app_thoi_tiet/linux"
+    "cmake.sourceDirectory": "D:/github/app_thoi_tiet/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

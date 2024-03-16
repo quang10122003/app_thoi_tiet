@@ -1,12 +1,30 @@
+import 'dart:io';
+
 import 'package:bai_cuoi_ky/Widget/homeScreen.dart';
 import 'package:bai_cuoi_ky/Widget/registerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // class giao diện màm hình login
 class LoginScreen extends StatelessWidget {
+  // hàm yêu cầu người dùng cấp quyền truy cập vị trí
+  void _checkLocationPermission() async {
+    PermissionStatus status = await Permission.locationWhenInUse.status;
+    if (status.isDenied) {
+      PermissionStatus permissionStatus =
+          await Permission.locationWhenInUse.request();
+      if (permissionStatus.isDenied) {
+        // Thoát ứng dụng nếu người dùng từ chối cấp quyền
+        exit(0);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _checkLocationPermission();
     // TODO: implement build
     return Scaffold(
       body: SafeArea(
@@ -257,7 +275,8 @@ class LoginScreen extends StatelessWidget {
                           // Điều hướng đến màn hình đăng ký ở đây
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RegisterScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => RegisterScreen()),
                           );
                         },
                         child: Text(
