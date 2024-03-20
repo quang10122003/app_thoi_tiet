@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bai_cuoi_ky/Models/cityWeather.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -21,6 +22,101 @@ class Api {
     return result;
   }
 
+  Future<Position?> _getLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      return position;
+    } catch (e) {
+      print('Could not get location: $e');
+    }
+  }
+
+  Future<CityWeather?> get_data_api_city_no_city() async {
+    Position? position = await _getLocation();
+    double? longitude = position?.longitude; // kinh do
+    double? latitude = position?.latitude; // vi do
+
+    String api =
+        "https://api.openweathermap.org/data/2.5/forecast?lat=$latitude&lon=$longitude&lang=vi&units=metric&appid=$api_key";
+    var url = Uri.parse(api);
+    // print(longitude);
+    // print(latitude);
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        print("lay du lieu thanh cong");
+        String data = response.body;
+        var decode_data = jsonDecode(data);
+
+        var icon = decode_data['list'][8]['weather'][0]["icon"].toString();
+        icon = icon.substring(0, 2);
+
+        var nd_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
+        nd_icon = nd_icon.substring(0, 2);
+
+        var n2d_icon = decode_data['list'][24]['weather'][0]["icon"].toString();
+        n2d_icon = nd_icon.substring(0, 2);
+
+        var description = decode_data['list'][8]['weather'][0]["description"];
+
+        var feels_like = decode_data['list'][8]['main']['feels_like'];
+        var temp = decode_data['list'][8]['main']['temp'];
+        var wind = decode_data['list'][8]['wind']['speed'];
+        var pressure = decode_data['list'][8]['main']['pressure'];
+        var humidity = decode_data['list'][8]['main']['humidity'];
+        var visibility = decode_data['list'][8]["visibility"];
+        var next_day = handle_date_series(decode_data['list'][16]['dt_txt']);
+        var nd_description =
+            decode_data['list'][16]['weather'][0]["description"];
+        var nd_wind = decode_data['list'][16]['wind']['speed'];
+        var nd_pressure = decode_data['list'][16]['main']['pressure'];
+        var nd_humidity = decode_data['list'][16]['main']['humidity'];
+        var nd_visibility = decode_data['list'][16]["visibility"];
+        var nd_temp = decode_data['list'][16]['main']['temp'];
+        var next_2_day = handle_date_series(decode_data['list'][24]['dt_txt']);
+        var n2d_description =
+            decode_data['list'][24]['weather'][0]["description"];
+        var n2d_wind = decode_data['list'][24]['wind']['speed'];
+        var n2d_pressure = decode_data['list'][24]['main']['pressure'];
+        var n2d_humidity = decode_data['list'][24]['main']['humidity'];
+        var n2d_visibility = decode_data['list'][24]["visibility"];
+        var n2d_temp = decode_data['list'][24]['main']['temp'];
+        var name_city = decode_data["city"]["name"];
+        CityWeather new_city_weather = CityWeather(
+            description: description,
+            feels_like: feels_like,
+            temp: temp,
+            wind: wind,
+            pressure: pressure,
+            humidity: humidity,
+            visibility: visibility,
+            icon: icon,
+            next_day: next_day,
+            nd_description: nd_description,
+            nd_wind: nd_wind,
+            nd_pressure: nd_pressure,
+            nd_humidity: nd_humidity,
+            nd_visibility: nd_visibility,
+            nd_temp: nd_temp,
+            next_2_day: next_2_day,
+            n2d_description: n2d_description,
+            n2d_wind: n2d_wind,
+            n2d_pressure: n2d_pressure,
+            n2d_humidity: n2d_humidity,
+            n2d_visibility: n2d_visibility,
+            n2d_temp: n2d_temp,
+            nd_icon: nd_icon,
+            n2d_icon: n2d_icon,
+            name_city: name_city);
+        return new_city_weather;
+      }
+    } catch (e) {
+      print("loi ${e}");
+      return null;
+    }
+  }
+
   Future<CityWeather?> get_data_api_city(String namecity) async {
     String api =
         "https://api.openweathermap.org/data/2.5/forecast?q=$namecity&appid=$api_key&units=metric&lang=vi";
@@ -32,39 +128,39 @@ class Api {
         String data = response.body;
         var decode_data = jsonDecode(data);
 
-        var icon = decode_data['list'][0]['weather'][0]["icon"].toString();
+        var icon = decode_data['list'][8]['weather'][0]["icon"].toString();
         icon = icon.substring(0, 2);
 
-        var nd_icon = decode_data['list'][8]['weather'][0]["icon"].toString();
+        var nd_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
         nd_icon = nd_icon.substring(0, 2);
 
-        var n2d_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
+        var n2d_icon = decode_data['list'][24]['weather'][0]["icon"].toString();
         n2d_icon = nd_icon.substring(0, 2);
 
-        var description = decode_data['list'][0]['weather'][0]["description"];
+        var description = decode_data['list'][8]['weather'][0]["description"];
 
-        var feels_like = decode_data['list'][0]['main']['feels_like'];
-        var temp = decode_data['list'][0]['main']['temp'];
-        var wind = decode_data['list'][0]['wind']['speed'];
-        var pressure = decode_data['list'][0]['main']['pressure'];
-        var humidity = decode_data['list'][0]['main']['humidity'];
-        var visibility = decode_data['list'][0]["visibility"];
-        var next_day = handle_date_series(decode_data['list'][8]['dt_txt']);
+        var feels_like = decode_data['list'][8]['main']['feels_like'];
+        var temp = decode_data['list'][8]['main']['temp'];
+        var wind = decode_data['list'][8]['wind']['speed'];
+        var pressure = decode_data['list'][8]['main']['pressure'];
+        var humidity = decode_data['list'][8]['main']['humidity'];
+        var visibility = decode_data['list'][8]["visibility"];
+        var next_day = handle_date_series(decode_data['list'][16]['dt_txt']);
         var nd_description =
-            decode_data['list'][8]['weather'][0]["description"];
-        var nd_wind = decode_data['list'][8]['wind']['speed'];
-        var nd_pressure = decode_data['list'][8]['main']['pressure'];
-        var nd_humidity = decode_data['list'][8]['main']['humidity'];
-        var nd_visibility = decode_data['list'][8]["visibility"];
-        var nd_temp = decode_data['list'][8]['main']['temp'];
-        var next_2_day = handle_date_series(decode_data['list'][16]['dt_txt']);
-        var n2d_description =
             decode_data['list'][16]['weather'][0]["description"];
-        var n2d_wind = decode_data['list'][16]['wind']['speed'];
-        var n2d_pressure = decode_data['list'][16]['main']['pressure'];
-        var n2d_humidity = decode_data['list'][16]['main']['humidity'];
-        var n2d_visibility = decode_data['list'][16]["visibility"];
-        var n2d_temp = decode_data['list'][16]['main']['temp'];
+        var nd_wind = decode_data['list'][16]['wind']['speed'];
+        var nd_pressure = decode_data['list'][16]['main']['pressure'];
+        var nd_humidity = decode_data['list'][16]['main']['humidity'];
+        var nd_visibility = decode_data['list'][16]["visibility"];
+        var nd_temp = decode_data['list'][16]['main']['temp'];
+        var next_2_day = handle_date_series(decode_data['list'][24]['dt_txt']);
+        var n2d_description =
+            decode_data['list'][24]['weather'][0]["description"];
+        var n2d_wind = decode_data['list'][24]['wind']['speed'];
+        var n2d_pressure = decode_data['list'][24]['main']['pressure'];
+        var n2d_humidity = decode_data['list'][24]['main']['humidity'];
+        var n2d_visibility = decode_data['list'][24]["visibility"];
+        var n2d_temp = decode_data['list'][24]['main']['temp'];
         CityWeather new_city_weather = CityWeather(
             description: description,
             feels_like: feels_like,
@@ -91,7 +187,7 @@ class Api {
             nd_icon: nd_icon,
             n2d_icon: n2d_icon);
         return new_city_weather;
-      } 
+      }
     } catch (e) {
       print("loi ${e}");
       return null;

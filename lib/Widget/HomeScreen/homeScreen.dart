@@ -46,6 +46,13 @@ class _MainScreenState extends State<MainScreen> {
               top: 30,
               child: Column(
                 children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          list_city_love = null;
+                        });
+                      },
+                      child: Text("kgjoeg")),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 0,
@@ -56,7 +63,36 @@ class _MainScreenState extends State<MainScreen> {
                       height: 70,
                       child: (() {
                         try {
-                          if (list_city_love?.isEmpty != true) {
+                          if (list_city_love == null ||
+                              list_city_love!.isEmpty) {
+                            return Center(
+                              child: FutureBuilder<CityWeather?>(
+                                future: Api().get_data_api_city_no_city(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator(); // Hiển thị tiến trình chờ đợi
+                                  } else if (snapshot.hasError) {
+                                    return Text(
+                                        'Đã xảy ra lỗi: ${snapshot.error}');
+                                  } else {
+                                    CityWeather? cityWeather = snapshot.data;
+                                    if (cityWeather != null) {
+                                      return Text(
+                                        "${cityWeather.name_city}",
+                                        style: TextStyle(
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                      );
+                                    } else {
+                                      return Text('Không có dữ liệu');
+                                    }
+                                  }
+                                },
+                              ),
+                            );
+                          } else {
                             return DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -78,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               items: City()
                                       .loved_cities
-                                      ?.map<DropdownMenuItem<String>>(
+                                      .map<DropdownMenuItem<String>>(
                                         (String value) =>
                                             DropdownMenuItem<String>(
                                           value: value,
@@ -88,33 +124,28 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         ),
                                       )
-                                      .toList() ??
-                                  [], // Trường hợp danh sách rỗng
+                                      .toList(),
                               onChanged: (String? value) {
                                 setState(() {
                                   _selectedItem = value;
                                 });
                               },
                             );
-                          } else {
-                            return Center(
-                                child: Text(
-                              "null",
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.w100),
-                            ));
                           }
                         } catch (e) {
                           return Text("Error: $e");
                         }
-                      })(), // Đóng biểu thức hàm và gọi nó ngay lập tức
+                      })(),
+                      // Đóng biểu thức hàm và gọi nó ngay lập tức
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: 10, horizontal: screen.width / 2 - 75),
                     child: FutureBuilder<CityWeather?>(
-                      future: Api().get_data_api_city(_selectedItem!),
+                      future: (list_city_love?.isEmpty ?? true)
+                          ? Api().get_data_api_city_no_city()
+                          : Api().get_data_api_city(_selectedItem!),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -139,7 +170,9 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   FutureBuilder<CityWeather?>(
-                    future: Api().get_data_api_city(_selectedItem!),
+                    future: (list_city_love?.isEmpty ?? true)
+                        ? Api().get_data_api_city_no_city()
+                        : Api().get_data_api_city(_selectedItem!),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return CircularProgressIndicator(); // Hiển thị tiến trình chờ đợi
@@ -166,7 +199,9 @@ class _MainScreenState extends State<MainScreen> {
                     },
                   ),
                   FutureBuilder<CityWeather?>(
-                    future: Api().get_data_api_city(_selectedItem!),
+                    future: (list_city_love?.isEmpty ?? true)
+                        ? Api().get_data_api_city_no_city()
+                        : Api().get_data_api_city(_selectedItem!),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return CircularProgressIndicator(); // Hiển thị tiến trình chờ đợi
@@ -195,7 +230,9 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: FutureBuilder<CityWeather?>(
-                      future: Api().get_data_api_city(_selectedItem!),
+                      future: (list_city_love?.isEmpty ?? true)
+                          ? Api().get_data_api_city_no_city()
+                          : Api().get_data_api_city(_selectedItem!),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -276,7 +313,9 @@ class _MainScreenState extends State<MainScreen> {
                             width: 75,
                             height: 19,
                             child: FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -346,7 +385,9 @@ class _MainScreenState extends State<MainScreen> {
                             width: 75,
                             height: 19,
                             child: FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -416,7 +457,9 @@ class _MainScreenState extends State<MainScreen> {
                             width: 75,
                             height: 19,
                             child: FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -599,7 +642,9 @@ class _MainScreenState extends State<MainScreen> {
                             width: 75,
                             height: 19,
                             child: FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -671,8 +716,9 @@ class _MainScreenState extends State<MainScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -711,8 +757,9 @@ class _MainScreenState extends State<MainScreen> {
                                   },
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -753,7 +800,9 @@ class _MainScreenState extends State<MainScreen> {
                               ],
                             ),
                             FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -778,7 +827,9 @@ class _MainScreenState extends State<MainScreen> {
                               },
                             ),
                             FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -835,8 +886,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -888,8 +940,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -941,8 +994,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -994,8 +1048,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1063,8 +1118,9 @@ class _MainScreenState extends State<MainScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1103,8 +1159,9 @@ class _MainScreenState extends State<MainScreen> {
                                   },
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1145,7 +1202,9 @@ class _MainScreenState extends State<MainScreen> {
                               ],
                             ),
                             FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -1170,7 +1229,9 @@ class _MainScreenState extends State<MainScreen> {
                               },
                             ),
                             FutureBuilder<CityWeather?>(
-                              future: Api().get_data_api_city(_selectedItem!),
+                              future: (list_city_love?.isEmpty ?? true)
+                                  ? Api().get_data_api_city_no_city()
+                                  : Api().get_data_api_city(_selectedItem!),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
@@ -1227,8 +1288,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1280,8 +1342,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1333,8 +1396,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
@@ -1386,8 +1450,9 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 2,
                                 ),
                                 FutureBuilder<CityWeather?>(
-                                  future:
-                                      Api().get_data_api_city(_selectedItem!),
+                                  future: (list_city_love?.isEmpty ?? true)
+                                      ? Api().get_data_api_city_no_city()
+                                      : Api().get_data_api_city(_selectedItem!),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {

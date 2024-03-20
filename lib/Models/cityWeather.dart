@@ -23,6 +23,7 @@ class CityWeather {
   var n2d_visibility;
   var n2d_temp;
   var n2d_icon;
+  var name_city;
   CityWeather({
     required this.description,
     required this.feels_like,
@@ -48,5 +49,6 @@ class CityWeather {
     required this.n2d_temp,
     required this.nd_icon,
     required this.n2d_icon,
+    this.name_city,
   });
 }
