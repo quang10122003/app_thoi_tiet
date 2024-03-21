@@ -49,39 +49,39 @@ class Api {
         String data = response.body;
         var decode_data = jsonDecode(data);
 
-        var icon = decode_data['list'][8]['weather'][0]["icon"].toString();
+        var icon = decode_data['list'][0]['weather'][0]["icon"].toString();
         icon = icon.substring(0, 2);
 
-        var nd_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
+        var nd_icon = decode_data['list'][8]['weather'][0]["icon"].toString();
         nd_icon = nd_icon.substring(0, 2);
 
-        var n2d_icon = decode_data['list'][24]['weather'][0]["icon"].toString();
+        var n2d_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
         n2d_icon = nd_icon.substring(0, 2);
 
-        var description = decode_data['list'][8]['weather'][0]["description"];
+        var description = decode_data['list'][0]['weather'][0]["description"];
 
-        var feels_like = decode_data['list'][8]['main']['feels_like'];
-        var temp = decode_data['list'][8]['main']['temp'];
-        var wind = decode_data['list'][8]['wind']['speed'];
-        var pressure = decode_data['list'][8]['main']['pressure'];
-        var humidity = decode_data['list'][8]['main']['humidity'];
-        var visibility = decode_data['list'][8]["visibility"];
-        var next_day = handle_date_series(decode_data['list'][16]['dt_txt']);
+        var feels_like = decode_data['list'][0]['main']['feels_like'];
+        var temp = decode_data['list'][0]['main']['temp'];
+        var wind = decode_data['list'][0]['wind']['speed'];
+        var pressure = decode_data['list'][0]['main']['pressure'];
+        var humidity = decode_data['list'][0]['main']['humidity'];
+        var visibility = decode_data['list'][0]["visibility"];
+        var next_day = handle_date_series(decode_data['list'][8]['dt_txt']);
         var nd_description =
-            decode_data['list'][16]['weather'][0]["description"];
-        var nd_wind = decode_data['list'][16]['wind']['speed'];
-        var nd_pressure = decode_data['list'][16]['main']['pressure'];
-        var nd_humidity = decode_data['list'][16]['main']['humidity'];
-        var nd_visibility = decode_data['list'][16]["visibility"];
-        var nd_temp = decode_data['list'][16]['main']['temp'];
-        var next_2_day = handle_date_series(decode_data['list'][24]['dt_txt']);
+            decode_data['list'][8]['weather'][0]["description"];
+        var nd_wind = decode_data['list'][8]['wind']['speed'];
+        var nd_pressure = decode_data['list'][8]['main']['pressure'];
+        var nd_humidity = decode_data['list'][8]['main']['humidity'];
+        var nd_visibility = decode_data['list'][8]["visibility"];
+        var nd_temp = decode_data['list'][8]['main']['temp'];
+        var next_2_day = handle_date_series(decode_data['list'][16]['dt_txt']);
         var n2d_description =
-            decode_data['list'][24]['weather'][0]["description"];
-        var n2d_wind = decode_data['list'][24]['wind']['speed'];
-        var n2d_pressure = decode_data['list'][24]['main']['pressure'];
-        var n2d_humidity = decode_data['list'][24]['main']['humidity'];
-        var n2d_visibility = decode_data['list'][24]["visibility"];
-        var n2d_temp = decode_data['list'][24]['main']['temp'];
+            decode_data['list'][16]['weather'][0]["description"];
+        var n2d_wind = decode_data['list'][16]['wind']['speed'];
+        var n2d_pressure = decode_data['list'][16]['main']['pressure'];
+        var n2d_humidity = decode_data['list'][16]['main']['humidity'];
+        var n2d_visibility = decode_data['list'][16]["visibility"];
+        var n2d_temp = decode_data['list'][16]['main']['temp'];
         var name_city = decode_data["city"]["name"];
         CityWeather new_city_weather = CityWeather(
             description: description,
@@ -128,39 +128,39 @@ class Api {
         String data = response.body;
         var decode_data = jsonDecode(data);
 
-        var icon = decode_data['list'][8]['weather'][0]["icon"].toString();
+        var icon = decode_data['list'][0]['weather'][0]["icon"].toString();
         icon = icon.substring(0, 2);
 
-        var nd_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
+        var nd_icon = decode_data['list'][8]['weather'][0]["icon"].toString();
         nd_icon = nd_icon.substring(0, 2);
 
-        var n2d_icon = decode_data['list'][24]['weather'][0]["icon"].toString();
+        var n2d_icon = decode_data['list'][16]['weather'][0]["icon"].toString();
         n2d_icon = nd_icon.substring(0, 2);
 
-        var description = decode_data['list'][8]['weather'][0]["description"];
+        var description = decode_data['list'][0]['weather'][0]["description"];
 
-        var feels_like = decode_data['list'][8]['main']['feels_like'];
-        var temp = decode_data['list'][8]['main']['temp'];
-        var wind = decode_data['list'][8]['wind']['speed'];
-        var pressure = decode_data['list'][8]['main']['pressure'];
-        var humidity = decode_data['list'][8]['main']['humidity'];
-        var visibility = decode_data['list'][8]["visibility"];
-        var next_day = handle_date_series(decode_data['list'][16]['dt_txt']);
+        var feels_like = decode_data['list'][0]['main']['feels_like'];
+        var temp = decode_data['list'][0]['main']['temp'];
+        var wind = decode_data['list'][0]['wind']['speed'];
+        var pressure = decode_data['list'][0]['main']['pressure'];
+        var humidity = decode_data['list'][0]['main']['humidity'];
+        var visibility = decode_data['list'][0]["visibility"];
+        var next_day = handle_date_series(decode_data['list'][8]['dt_txt']);
         var nd_description =
-            decode_data['list'][16]['weather'][0]["description"];
-        var nd_wind = decode_data['list'][16]['wind']['speed'];
-        var nd_pressure = decode_data['list'][16]['main']['pressure'];
-        var nd_humidity = decode_data['list'][16]['main']['humidity'];
-        var nd_visibility = decode_data['list'][16]["visibility"];
-        var nd_temp = decode_data['list'][16]['main']['temp'];
-        var next_2_day = handle_date_series(decode_data['list'][24]['dt_txt']);
+            decode_data['list'][8]['weather'][0]["description"];
+        var nd_wind = decode_data['list'][8]['wind']['speed'];
+        var nd_pressure = decode_data['list'][8]['main']['pressure'];
+        var nd_humidity = decode_data['list'][8]['main']['humidity'];
+        var nd_visibility = decode_data['list'][8]["visibility"];
+        var nd_temp = decode_data['list'][8]['main']['temp'];
+        var next_2_day = handle_date_series(decode_data['list'][16]['dt_txt']);
         var n2d_description =
-            decode_data['list'][24]['weather'][0]["description"];
-        var n2d_wind = decode_data['list'][24]['wind']['speed'];
-        var n2d_pressure = decode_data['list'][24]['main']['pressure'];
-        var n2d_humidity = decode_data['list'][24]['main']['humidity'];
-        var n2d_visibility = decode_data['list'][24]["visibility"];
-        var n2d_temp = decode_data['list'][24]['main']['temp'];
+            decode_data['list'][16]['weather'][0]["description"];
+        var n2d_wind = decode_data['list'][16]['wind']['speed'];
+        var n2d_pressure = decode_data['list'][16]['main']['pressure'];
+        var n2d_humidity = decode_data['list'][16]['main']['humidity'];
+        var n2d_visibility = decode_data['list'][16]["visibility"];
+        var n2d_temp = decode_data['list'][16]['main']['temp'];
         CityWeather new_city_weather = CityWeather(
             description: description,
             feels_like: feels_like,
