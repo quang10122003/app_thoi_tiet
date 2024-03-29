@@ -17,25 +17,6 @@ class LoginScreen extends StatelessWidget {
   TextEditingController _email_ctl = TextEditingController();
   firebaseService _auth = firebaseService();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  final CollectionReference users =
-      FirebaseFirestore.instance.collection('users');
-  Future<void> _addFavoriteCity(String cityName) async {
-    try {
-      // Use User ID as Document ID to store user's favorite city list
-      await _firestore
-          .collection('users')
-          .doc("1")
-          .collection('favorite_cities')
-          .doc()
-          .set({
-        'cityName': cityName,
-      });
-    } catch (e) {
-      print('Failed to add favorite city: $e');
-    }
-  }
-
   // hàm yêu cầu người dùng cấp quyền truy cập vị trí
   void _checkLocationPermission() async {
     PermissionStatus status = await Permission.locationWhenInUse.status;
@@ -57,7 +38,7 @@ class LoginScreen extends StatelessWidget {
       if (result.user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen(_email_ctl.text)),
         );
       } else if (result.errorMessage != null) {
         ScaffoldMessenger.of(context)
@@ -72,9 +53,6 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ElevatedButton(onPressed: (){
-                _addFavoriteCity("ha noi");
-              }, child: Text("noaij")),
               Container(
                 height: 750,
                 clipBehavior: Clip.antiAlias,

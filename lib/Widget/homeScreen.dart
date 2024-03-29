@@ -9,26 +9,34 @@ import 'package:flutter_svg/flutter_svg.dart';
 // home có 4 chức năng làm chức năng cần thêm màn hình nào thì các bạn tự thêm nha
 class HomeScreen extends StatefulWidget {
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState(_email);
+  String _email='';
+  HomeScreen(this._email);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final String email;
   int currentPageIndex = 0;
+  List<Widget> _screen = [];
 
+  _HomeScreenState(this.email); // Nhận giá trị _email từ HomeScreen
+
+  @override
+  void initState() {
+    super.initState();
+    // Khởi tạo _screen ở trong initState để truy cập được vào thuộc tính email
+    _screen = [
+      MainScreen(email),
+      SearchScreen(email),
+      FavoriteScreen(email), // Sử dụng email ở đây
+      SettingScreen()
+    ];
+  }
   void _onItemTapped(int index) {
     setState(() {
       currentPageIndex = index;
     });
   }
-
-  List<Widget> _screen = <Widget>[
-      MainScreen(),
-      SearchScreen(),
-      FavoriteScreen(),
-      SettingScreen()
-    ];
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

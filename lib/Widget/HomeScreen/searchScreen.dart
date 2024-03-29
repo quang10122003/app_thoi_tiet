@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:async/async.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  String email='';
+  SearchScreen(this.email);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

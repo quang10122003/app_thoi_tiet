@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+  String email='';
+  FavoriteScreen(this.email);
 
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();

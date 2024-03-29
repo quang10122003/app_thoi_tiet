@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  String email='';
+  MainScreen(this.email);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -404,6 +405,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget build(BuildContext context) {
+
     final TextEditingController cityController = TextEditingController();
     Size screen = MediaQuery.of(context).size;
     return Container(

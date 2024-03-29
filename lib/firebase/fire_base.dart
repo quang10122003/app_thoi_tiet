@@ -50,4 +50,20 @@ class firebaseService {
       return AuthResult(errorMessage: 'tài khoản hoặc mật khẩu không chính xác.');
     }
   }
+  Future<String?> getUidByEmail(String email) async {
+    try {
+      // Gọi hàm để lấy thông tin người dùng từ Firebase Auth
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: 'password', // Mật khẩu không quan trọng, chỉ cần email để đăng nhập
+      );
+
+      // Trả về UID của người dùng
+      return userCredential.user!.uid;
+    } catch (e) {
+      // Xử lý lỗi nếu có
+      print('Error getting UID by email: $e');
+      return null;
+    }
+  }
 }
