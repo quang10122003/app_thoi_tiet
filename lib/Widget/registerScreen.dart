@@ -1,8 +1,20 @@
 import 'package:bai_cuoi_ky/Widget/loginScreen.dart';
+import 'package:bai_cuoi_ky/firebase/fire_base.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
- // class giao diện màm hình đăng ký
-class RegisterScreen extends StatelessWidget{
+
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  firebaseService _auth = firebaseService();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _passwordAgain = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +28,6 @@ class RegisterScreen extends StatelessWidget{
                 decoration: BoxDecoration(color: Color(0xFFF9F7F7)),
                 child: Stack(
                   children: [
-                    //Day la vi tri logo
                     Positioned(
                       left: -21,
                       top: -203,
@@ -105,6 +116,7 @@ class RegisterScreen extends StatelessWidget{
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  controller: _email,
                                   decoration: InputDecoration(
                                     hintText: 'abc@gmail.com',
                                   ),
@@ -171,6 +183,7 @@ class RegisterScreen extends StatelessWidget{
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  controller: _password,
                                   decoration: InputDecoration(
                                     hintText: '********',
                                   ),
@@ -238,6 +251,7 @@ class RegisterScreen extends StatelessWidget{
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  controller: _passwordAgain,
                                   decoration: InputDecoration(
                                     hintText: '********',
                                   ),
@@ -260,28 +274,23 @@ class RegisterScreen extends StatelessWidget{
                         left: 85,
                         top: 643,
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
-                            child: Text(
-                              'Confirm',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Karla',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
-                              ),
+                          onPressed: _confirmRegistration,
+                          child: Text(
+                            'Confirm',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Karla',
+                              fontWeight: FontWeight.w700,
+                              height: 0,
                             ),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(0xFF3F72AF)),
-                                minimumSize:
-                                MaterialStateProperty.all(Size(200, 40))))),
-
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Color(0xFF3F72AF)),
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(200, 40))),
+                        )),
                     Positioned(
                       left: 75,
                       top: 699,
@@ -321,7 +330,8 @@ class RegisterScreen extends StatelessWidget{
                           // Điều hướng đến màn hình đăng nhập ở đây
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
                           );
                         },
                         child: Text(
@@ -345,5 +355,57 @@ class RegisterScreen extends StatelessWidget{
       ),
     );
   }
-  
+
+  void _confirmRegistration() async {
+    if (_password.text == _passwordAgain.text) {
+      if (_password.text.length < 6) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Mật khẩu phải có ít nhất 6 ký tự")));
+        setState(() {
+          _password.text = "";
+          _passwordAgain.text = "";
+        });
+      } else if (!isEmailValid(_email.text)) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("email không hợp lệ")));
+        setState(() {
+          _email.text = "";
+        });
+      } else {
+        AuthResult result = await _auth.registerUserWithEmailPassword(
+            _email.text, _password.text);
+        if (result.user != null) {
+          // Đăng ký thành công
+          print('Đăng ký thành công');
+          // _auth.registerNewUser(_email.text);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Đăng ký thành công"),
+            ),
+          );
+        } else if (result.errorMessage != null) {
+          // Có lỗi xảy ra, hiển thị thông báo lỗi
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(result.errorMessage!)));
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("mật khẩu không khớp vui lòng nhập lại")));
+      setState(() {
+        _password.text = "";
+        _passwordAgain.text = "";
+      });
+    }
+  }
+
+  bool isEmailValid(String email) {
+    String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(email);
+  }
 }

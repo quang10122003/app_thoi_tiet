@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994252590551",
+    "project_id": "app-thoi-tiet-f2145",
+    "storage_bucket": "app-thoi-tiet-f2145.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994252590551:android:a2ec1cd89eb64379638f92",
+        "android_client_info": {
+          "package_name": "com.example.bai_cuoi_ky"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP0JQQ_j8ACpd3I7YLrU-MmDUNsBMD-5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

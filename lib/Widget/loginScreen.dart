@@ -1,14 +1,41 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:bai_cuoi_ky/Widget/homeScreen.dart';
 import 'package:bai_cuoi_ky/Widget/registerScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../firebase/fire_base.dart';
 
 // class giao diện màm hình login
 class LoginScreen extends StatelessWidget {
+  TextEditingController _password_ctl = TextEditingController();
+  TextEditingController _email_ctl = TextEditingController();
+  firebaseService _auth = firebaseService();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
+  Future<void> _addFavoriteCity(String cityName) async {
+    try {
+      // Use User ID as Document ID to store user's favorite city list
+      await _firestore
+          .collection('users')
+          .doc("1")
+          .collection('favorite_cities')
+          .doc()
+          .set({
+        'cityName': cityName,
+      });
+    } catch (e) {
+      print('Failed to add favorite city: $e');
+    }
+  }
+
   // hàm yêu cầu người dùng cấp quyền truy cập vị trí
   void _checkLocationPermission() async {
     PermissionStatus status = await Permission.locationWhenInUse.status;
@@ -24,6 +51,20 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _confirmRegistration() async {
+      AuthResult result = await _auth.loginUserWithEmailPassword(
+          _email_ctl.text, _password_ctl.text);
+      if (result.user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else if (result.errorMessage != null) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(result.errorMessage!)));
+      }
+    }
+
     _checkLocationPermission();
     // TODO: implement build
     return Scaffold(
@@ -31,6 +72,9 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              ElevatedButton(onPressed: (){
+                _addFavoriteCity("ha noi");
+              }, child: Text("noaij")),
               Container(
                 height: 750,
                 clipBehavior: Clip.antiAlias,
@@ -126,6 +170,7 @@ class LoginScreen extends StatelessWidget {
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  controller: _email_ctl,
                                   decoration: InputDecoration(
                                     hintText: 'abc@gmail.com',
                                   ),
@@ -192,6 +237,7 @@ class LoginScreen extends StatelessWidget {
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  controller: _password_ctl,
                                   decoration: InputDecoration(
                                     hintText: '********',
                                   ),
@@ -215,10 +261,8 @@ class LoginScreen extends StatelessWidget {
                         top: 643,
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                              
+                              _confirmRegistration();
                             },
                             child: Text(
                               'Confirm',

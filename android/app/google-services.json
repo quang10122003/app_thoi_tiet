@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "603538234263",
+    "project_id": "testck-99777",
+    "storage_bucket": "testck-99777.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603538234263:android:ea35a22f91eee0085142d2",
+        "android_client_info": {
+          "package_name": "com.example.bai_cuoi_ky"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu8x0waYUTbHwh8UaSPPmRSHn2_e23uac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
