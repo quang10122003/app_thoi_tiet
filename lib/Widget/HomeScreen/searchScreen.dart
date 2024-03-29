@@ -1,4 +1,5 @@
 import 'package:bai_cuoi_ky/Models/city.dart';
+import 'package:bai_cuoi_ky/firebase/fire_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:async/async.dart';
@@ -14,7 +15,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   // timer global
   CancelableOperation<void>? _debounceTimer;
-
+bool a = false;
 // Hàm delay request
   void debounce(void Function() action, Duration duration) {
     _debounceTimer?.cancel();
@@ -127,13 +128,6 @@ class _SearchScreenState extends State<SearchScreen> {
         .toList();
   }
 
-  void main() {
-    List<String> danhSach = ["Hà Nội", "Hải Phòng", "Đà Nẵng"];
-    String tuKhoa = "ha";
-
-    List<String> ketQua = timKiem(tuKhoa, danhSach);
-    print(ketQua); // Output: ["Hà Nội"]
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -274,10 +268,17 @@ class _SearchScreenState extends State<SearchScreen> {
                             shape: CircleBorder(),
                             backgroundColor: Color(0xFFDBE2EF),
                           ),
-                          onPressed: () {},
-                          child: islike
+
+                          onPressed: () {
+                            if(a = true){
+                              firebaseService().update(cityName, widget.email);
+                            }else{
+                              firebaseService().update("hhhhh", widget.email);
+                            }
+                          },
+                          child: a
                               ? SvgPicture.asset(
-                                  'images/bar/circle-heart.svg',
+                                  'images/bar/liked.svg',
                                   width: 20,
                                   height: 20,
                                 )

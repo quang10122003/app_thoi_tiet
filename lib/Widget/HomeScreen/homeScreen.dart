@@ -16,6 +16,15 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<String>? list = City().city_love.toList(); // test
   List<String>? list_city_love = [];
+  void fetchData() async {
+    List<String> list=[];
+    list =
+    await firebaseService().getAllCitiesByEmail("quang");
+    for(int i=0;i<list.length;i++){
+      print(list[i]);
+    }
+    // Sử dụng danh sách favorite cities ở đây
+  }
   FutureBuilder ShowApiInformation(String attribute) {
     return FutureBuilder<CityWeather?>(
       future: (list_city_love?.isEmpty ?? true)
@@ -399,6 +408,7 @@ class _MainScreenState extends State<MainScreen> {
   String? _selectedItem;
   initState() {
     super.initState();
+    fetchData();
     list_city_love = list;
     _selectedItem =
         list_city_love?.isEmpty == true ? null : list_city_love?.first;
