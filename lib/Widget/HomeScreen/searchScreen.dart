@@ -25,7 +25,7 @@ bool a = false;
       });
   }
 
-  List<String> list_city = City().city.keys.toList();
+  List<String> list_city_all = City().city.keys.toList();
 
   String searchQuery = '';
 // Hàm để loại bỏ dấu từ một chuỗi Unicode và chuyển đổi các ký tự có dấu sang các ký tự không dấu
@@ -127,8 +127,30 @@ bool a = false;
             removeDiacritics(thanhPho.toLowerCase()).contains(tuKhoa))
         .toList();
   }
+  List<String> cityLove =[];
+  void getListCityLove(String email) async{
+    List<String> cities = await firebaseService().getAllCitiesByEmail(email);
+    setState(() {
+      cityLove = cities;
+    });
+      print(cityLove);
 
+  }
+  bool bothArraysContainElement(List<dynamic> array1, List<dynamic> array2, dynamic element) {
+    if(array1.contains(element) == true && array2.contains(element) == true){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getListCityLove(widget.email);
+
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -224,14 +246,14 @@ bool a = false;
           Expanded(
             child: ListView.builder(
               itemCount: searchQuery.isEmpty
-                  ? list_city.length
-                  : timKiem(searchQuery, list_city).length,
+                  ? list_city_all.length
+                  : timKiem(searchQuery, list_city_all).length,
               itemBuilder: (BuildContext context, int index) {
                 final cityName;
                 if (searchQuery.isEmpty) {
-                  cityName = list_city[index];
+                  cityName = list_city_all[index];
                 } else {
-                  cityName = timKiem(searchQuery, list_city)[index];
+                  cityName = timKiem(searchQuery, list_city_all)[index];
                 }
                 var islike = false;
                 return Padding(
@@ -269,14 +291,14 @@ bool a = false;
                             backgroundColor: Color(0xFFDBE2EF),
                           ),
 
-                          onPressed: () {
-                            if(a = true){
-                              firebaseService().update(cityName, widget.email);
-                            }else{
-                              firebaseService().update("hhhhh", widget.email);
+                          onPressed: () async {
+                            if (!bothArraysContainElement(cityLove, list_city_all, cityName)) {
+                              await firebaseService().update(cityName, widget.email);
+                              getListCityLove(widget.email);
+                              setState(() {});
                             }
                           },
-                          child: a
+                          child: bothArraysContainElement(cityLove, list_city_all, cityName) == true
                               ? SvgPicture.asset(
                                   'images/bar/liked.svg',
                                   width: 20,

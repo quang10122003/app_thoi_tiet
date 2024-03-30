@@ -377,7 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (result.user != null) {
           // Đăng ký thành công
           print('Đăng ký thành công');
-          // _auth.registerNewUser(_email.text);
+          await firebaseService().taomoi(_email.text);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen()),

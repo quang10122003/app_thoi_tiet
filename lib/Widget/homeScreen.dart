@@ -10,8 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState(_email);
+  List<String> city_love;
   String _email='';
-  HomeScreen(this._email);
+  HomeScreen(this._email,this.city_love);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Khởi tạo _screen ở trong initState để truy cập được vào thuộc tính email
     _screen = [
-      MainScreen(email),
+      MainScreen(email, widget.city_love),
       SearchScreen(email),
       FavoriteScreen(email), // Sử dụng email ở đây
       SettingScreen()

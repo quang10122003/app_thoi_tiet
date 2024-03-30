@@ -7,27 +7,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class MainScreen extends StatefulWidget {
   String email='';
-  MainScreen(this.email);
+  List<String> list_city_love;
+  MainScreen(this.email,this.list_city_love);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<String>? list = City().city_love.toList(); // test
-  List<String>? list_city_love = [];
-  void fetchData() async {
-    List<String> list=[];
-    list =
-    await firebaseService().getAllCitiesByEmail("quang");
-    for(int i=0;i<list.length;i++){
-      print(list[i]);
-    }
-    // Sử dụng danh sách favorite cities ở đây
-  }
+
   FutureBuilder ShowApiInformation(String attribute) {
     return FutureBuilder<CityWeather?>(
-      future: (list_city_love?.isEmpty ?? true)
+      future: (city_love?.isEmpty ?? true)
           ? Api().get_data_api_city_no_city()
           : Api().get_data_api_city(City().city[_selectedItem]!),
       builder: (context, snapshot) {
@@ -402,17 +393,30 @@ class _MainScreenState extends State<MainScreen> {
         }
       },
     );
+
+  }
+  List<String> city_love = [];
+  String? _selectedItem;
+  void listlooding(String email) async {
+    List<String> cities = await firebaseService().getAllCitiesByEmail(email);
+    if (cities != null) {
+      setState(() {
+        widget.list_city_love = cities;
+      });
+    } else {
+      print('cities is null');
+    }
   }
 
   @override
-  String? _selectedItem;
-  initState() {
-    super.initState();
-    fetchData();
-    list_city_love = list;
-    _selectedItem =
-        list_city_love?.isEmpty == true ? null : list_city_love?.first;
+  void initState() {
+    listlooding(widget.email);
+    city_love = widget.list_city_love;
+    if(widget.list_city_love.isNotEmpty){
+      _selectedItem = widget.list_city_love.first;
+    }
   }
+
 
   Widget build(BuildContext context) {
 
@@ -442,13 +446,13 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 children: [
                   // test
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          list_city_love = null;
-                        });
-                      },
-                      child: Text("kgjoeg")),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       setState(() {
+                  //         list_city_love = ;
+                  //       });
+                  //     },
+                  //     child: Text("kgjoeg")),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 0,
@@ -459,8 +463,8 @@ class _MainScreenState extends State<MainScreen> {
                       height: 70,
                       child: (() {
                         try {
-                          if (list_city_love == null ||
-                              list_city_love!.isEmpty) {
+                          if (widget.list_city_love == null ||
+                              widget.list_city_love!.isEmpty) {
                             return Center(
                               child: FutureBuilder<CityWeather?>(
                                 future: Api().get_data_api_city_no_city(),
@@ -508,7 +512,7 @@ class _MainScreenState extends State<MainScreen> {
                                 fontWeight: FontWeight.w300,
                                 height: 0,
                               ),
-                              items: list_city_love!
+                              items: widget.list_city_love!
                                   .map<DropdownMenuItem<String>>(
                                     (String value) => DropdownMenuItem<String>(
                                       value: value,

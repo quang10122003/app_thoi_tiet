@@ -13,6 +13,7 @@ import '../firebase/fire_base.dart';
 
 // class giao diện màm hình login
 class LoginScreen extends StatelessWidget {
+  late List<String> city_love;
   TextEditingController _password_ctl = TextEditingController();
   TextEditingController _email_ctl = TextEditingController();
   firebaseService _auth = firebaseService();
@@ -38,7 +39,7 @@ class LoginScreen extends StatelessWidget {
       if (result.user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen(_email_ctl.text)),
+          MaterialPageRoute(builder: (context) => HomeScreen(_email_ctl.text,city_love)),
         );
       } else if (result.errorMessage != null) {
         ScaffoldMessenger.of(context)
@@ -148,6 +149,9 @@ class LoginScreen extends StatelessWidget {
                                 width: 306,
                                 height: 51,
                                 child: TextField(
+                                  onChanged: (value) async{
+                                    city_love = await firebaseService().getAllCitiesByEmail(value);
+                                  },
                                   controller: _email_ctl,
                                   decoration: InputDecoration(
                                     hintText: 'abc@gmail.com',

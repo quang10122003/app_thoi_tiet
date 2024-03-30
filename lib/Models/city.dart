@@ -17,7 +17,8 @@ class City {
   };
   List<String> city_love = [
     "Hà Nội",
-    'Paris','Hồ Chí Minh',
+    'Paris',
+    'Hồ Chí Minh',
     'Đà Nẵng',
     'Thái Bình',
     'Hạ Long',
